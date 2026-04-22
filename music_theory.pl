@@ -249,3 +249,48 @@ transpose_progression(ProgressionIn, Semitones, ProgressionOut) :-
         ProgressionIn,
         ProgressionOut
     ).
+% ------------------------------------------------------------------
+% ХЭРЭГЛЭГЧИЙН ЦЭС (USER INTERFACE)
+% ------------------------------------------------------------------
+
+main_menu :-
+    repeat,
+    nl,
+    writeln('=== Hugjmiin onoliin SYSTEM==='),
+    writeln('1. Accord shiljvvleh (Transpose Chord)'),
+    writeln('2. Tvlhvvriin gamm harah (Scale)'),
+    writeln('3. Diatonik accorduud harah (Diatonic Chords)'),
+    writeln('4. Accord ali tvlhvvrt bagtahiig harah (Key Finder)'),
+    writeln('5. garah (Exit)'),
+    write('songolt (1-5): '),
+    read(Choice),
+    ( Choice == 5 -> writeln('Bayrtai!'), !
+    ; handle_choice(Choice),
+      fail
+    ).
+
+handle_choice(1) :-
+    write('Akkordoo oruul (jishee ni: \'Am7\'): '), read(Chord),
+    write('Heden hagas ton shiljvvleh we? (toogoor): '), read(Steps),
+    transpose_chord(Chord, Steps, Result),
+    format('Shiljvvlsen Accord: ~w~n', [Result]).
+
+handle_choice(2) :-
+    write('Tvlhvvree oruul (jishee ni: \'D\'): '), read(Key),
+    major_key_scale(Key, Major),
+    minor_key_scale(Key, Minor),
+    format('~w Major scale: ~w~n', [Key, Major]),
+    format('~w Minor scale: ~w~n', [Key, Minor]).
+
+handle_choice(3) :-
+    write('Tvlhvvree oruul: '), read(Key),
+    write('Tuluw (major/minor): '), read(Mode),
+    diatonic_chords(Mode, Key, Chords),
+    format('~w ~w-ын Diatonik accorduud: ~w~n', [Key, Mode, Chords]).
+
+handle_choice(4) :-
+    write('accordoo oruul (jishee ni: \'G\'): '), read(Chord),
+    keys_containing_chord(major, Chord, MajKeys),
+    keys_containing_chord(minor, Chord, MinKeys),
+    format('~w bagtsan Major tvlhvvrvvd: ~w~n', [Chord, MajKeys]),
+    format('~w bagtsan Minor tvlhvvrvvd: ~w~n', [Chord, MinKeys]).
