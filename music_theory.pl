@@ -270,7 +270,7 @@ main_menu :-
     ).
 
 handle_choice(1) :-
-    write('Akkordoo oruul (jishee ni: \'Am7\'): '), read(Chord),
+    write('Akkordoo oruul (jishee ni: \'Am7\'(zaawal '' haalttai bic)): '), read(Chord),
     write('Heden hagas ton shiljvvleh we? (toogoor): '), read(Steps),
     transpose_chord(Chord, Steps, Result),
     format('Shiljvvlsen Accord: ~w~n', [Result]).
@@ -289,7 +289,7 @@ handle_choice(3) :-
     format('~w ~w-ын Diatonik accorduud: ~w~n', [Key, Mode, Chords]).
 
 handle_choice(4) :-
-    write('accordoo oruul (jishee ni: \'G\'): '), read(Chord),
+    write('accordoo oruul (jishee ni: \'G\'(zaawal '' haalttai bic)): '), read(Chord),
     keys_containing_chord(major, Chord, MajKeys),
     keys_containing_chord(minor, Chord, MinKeys),
     format('~w bagtsan Major tvlhvvrvvd: ~w~n', [Chord, MajKeys]),
